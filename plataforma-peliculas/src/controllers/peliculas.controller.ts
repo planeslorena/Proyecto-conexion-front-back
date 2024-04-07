@@ -1,68 +1,55 @@
 
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpStatus,
-    Param,
-    ParseIntPipe,
-    Post,
-    Put,
-    Res,
-  } from '@nestjs/common';
-import Pelicula from 'src/models/pelicula.model';
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
+import Pelicula from 'src/models/pelicula.dto';
 import { PeliculasService } from 'src/services/peliculas.service';
 
-  @Controller('/api/peliculas')
-  export class PeliculasController {
-    constructor(private readonly peliculasService: PeliculasService) {}
-  
-    @Get()
-    getPeliculas(): Pelicula[] {
-      return this.peliculasService.getPeliculas();
-    }
-  
-    @Get('/:id')
-    getPeliculaByID(
-      @Param(
-        'id',
-        new ParseIntPipe({
-          errorHttpStatusCode: HttpStatus.BAD_REQUEST,
-        }),
-      )
-      id: number,
-    ): Pelicula {
-      return this.peliculasService.getPeliculaByID(id); 
-    }
+@Controller('/api/peliculas')
+export class PeliculasController {
+  constructor(private readonly peliculasService: PeliculasService) { }
 
-  /**
-    @Post()
-    createPelicula(@Body() body: Pelicula): Pelicula | string {
-      const newPelicula = body;
-      const pelicula = this.peliculasService.createPelicula(newPelicula);
-      if (pelicula) {
-        return Pelicula;
-      }
-      return 'Fallo la creacion de Pelicula';
-    }
-  
-    @Put('/:id')
-    updatePelicula(@Param() params: any, @Body() body: Pelicula): Pelicula | string {
-      const newPelicula = body;
-      const { id } = params;
-      const Pelicula = this.PeliculaService.updatePelicula(id, newPelicula);
-      if (Pelicula) {
-        return Pelicula;
-      }
-      return 'Error actualizando Pelicula';
-    }
-  
-    @Delete('/:id')
-    deletePelicula(@Param() params: any): void {
-      const { id } = params;
-      this.PeliculaService.deletePelicula(id);
-      return;
-    }
-    */
+  @Get()
+  getPeliculas(): Pelicula[] {
+    return this.peliculasService.getPeliculas();
   }
+
+  @Get('/:id')
+  getPeliculaByID(
+    @Param(
+      'id',
+      new ParseIntPipe({
+        errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+      }),
+    )
+    id: number,
+  ): Pelicula {
+    return this.peliculasService.getPeliculaByID(id);
+  }
+
+  @Patch('/:id')
+  updatePelicula(
+    @Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.BAD_REQUEST,}),) id: number,
+    @Body() body: Pelicula): Pelicula {
+
+    const newPelicula = body;
+    return this.peliculasService.updatePelicula(id, newPelicula);
+  }
+
+  @Delete('/:id')
+  deletePelicula(
+    @Param('id', new ParseIntPipe({
+ errorHttpStatusCode: HttpStatus.BAD_REQUEST, }),) id: number): void {
+    this.peliculasService.deletePelicula(id);
+  }
+}

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import Pelicula from "src/models/pelicula.model";
+import Pelicula from "src/models/pelicula.dto";
 
 let peliculas : Pelicula[] = [
 { 
@@ -36,6 +36,7 @@ let peliculas : Pelicula[] = [
 
 @Injectable()
 export class PeliculasService {
+
     getPeliculas(): Pelicula[] {
         return peliculas;
     }
@@ -46,6 +47,28 @@ export class PeliculasService {
         }
         return pelicula;
     }
+    
+    updatePelicula(id: number, newPelicula: Pelicula): Pelicula {
+        let peliculaupdated = peliculas.find(pl => pl.id == id)
+        if (!peliculaupdated) {
+            throw new HttpException('La pelicula que quiere actualizar no existe', HttpStatus.BAD_REQUEST);
+        }
+        peliculaupdated.actoresPrincipales = newPelicula.actoresPrincipales;
+        peliculaupdated.duracion = newPelicula.duracion;
+        peliculaupdated.fechaLanzamiento = newPelicula.fechaLanzamiento;
+        peliculaupdated.imagen = newPelicula.imagen;
+        peliculaupdated.listaGeneros = newPelicula.listaGeneros;
+        peliculaupdated.sinopsis = newPelicula.sinopsis;
+        peliculaupdated.titulo = newPelicula.titulo;
 
+        return peliculaupdated;
+    }
+
+    deletePelicula(id: any) {
+        if (!peliculas.find(pl => pl.id == id)) {
+            throw new HttpException('La pelicula que quiere eliminar no existe', HttpStatus.BAD_REQUEST);
+        }
+        peliculas = peliculas.filter(pl => pl.id != id);
+    }
     
 }
