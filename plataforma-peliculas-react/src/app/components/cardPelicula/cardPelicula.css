@@ -1,0 +1,14 @@
+.card-peliculas {
+    width: 22rem;
+    background-color: #eeedde;
+    margin: 50px 10px;
+    padding: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+    border-color: #495d43;
+}
+
+.card-img {
+    height: 200px;
+    width: 90%;
+    align-self: center;
+}

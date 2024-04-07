@@ -8,7 +8,7 @@ let peliculas : Pelicula[] = [
     actoresPrincipales: ['Marlon Brando', 'Al Pachino'], 
     listaGeneros: ['Drama', 'Crimen'], 
     sinopsis: 'Don Vito Corleone, conocido dentro de los círculos del hampa como El Padrino, es el patriarca de una de las cinco familias que ejercen el mando de la Cosa Nostra en Nueva York en los años cuarenta. Don Corleone tiene cuatro hijos: una chica, Connie, y tres varones; Sonny, Michael y Fredo. Cuando el Padrino reclina intervenir en el negocio de estupefacientes, empieza una cruenta lucha de violentos episodios entre las distintas familias del crimen organizado.',
-    imagen: '',
+    imagen: "https://vignette.wikia.nocookie.net/doblaje/images/9/9a/Elpadrino.jpg/revision/latest?cb=20170311061852&path-prefix=es",
     duracion: 175,
     fechaLanzamiento: '1972'
 }, 
