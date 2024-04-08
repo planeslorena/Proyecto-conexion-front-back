@@ -65,7 +65,7 @@ export const FormModificarPelicula = (props: any) => {
                 <input type = "number" className='form-control' {...register("duracion", {
                     required: "Por favor la duracion de la pelicula",
                     /*pattern: { value: /\d+/, message: "Este campo es númerico" }*/
-                })} /*defaultValue={pelicula.duracion}*//>
+                })} defaultValue={pelicula.duracion}/>
                 {errors.duracion && <small className='texto-validaciones'>{errors.duracion.message}</small>}
             </div>
             <div>
