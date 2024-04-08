@@ -53,13 +53,11 @@ export class PeliculasService {
         if (!peliculaupdated) {
             throw new HttpException('La pelicula que quiere actualizar no existe', HttpStatus.BAD_REQUEST);
         }
-        peliculaupdated.actoresPrincipales = newPelicula.actoresPrincipales;
-        peliculaupdated.duracion = newPelicula.duracion;
-        peliculaupdated.fechaLanzamiento = newPelicula.fechaLanzamiento;
-        peliculaupdated.imagen = newPelicula.imagen;
-        peliculaupdated.listaGeneros = newPelicula.listaGeneros;
-        peliculaupdated.sinopsis = newPelicula.sinopsis;
-        peliculaupdated.titulo = newPelicula.titulo;
+
+        peliculaupdated = {
+            ...newPelicula,
+            id: id,
+        }
 
         return peliculaupdated;
     }
