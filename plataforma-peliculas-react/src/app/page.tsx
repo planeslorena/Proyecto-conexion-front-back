@@ -5,6 +5,7 @@ import { deletePelicula, getAllPeliculas, patchPelicula } from "./services/Pelic
 import { useEffect, useState } from "react";
 import Pelicula from "./model/pelicula.model";
 import { CardPeliculas } from "./components/cardPelicula/cardPelicula";
+import { Login } from "./components/login/login";
 
 export default function Home() {
   const [peliculas, setpeliculas] = useState<Pelicula[]>([]);
@@ -36,6 +37,9 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <div>
+        <Login/>
+      </div>
       <div className={styles.description}>
         <CardPeliculas modificarPeli= {(pelicula:Pelicula) => modificarPeli(pelicula)} eliminarPelicula ={(id:number) => eliminarPelicula(id)} peliculas = {peliculas} ></CardPeliculas>
       </div>
