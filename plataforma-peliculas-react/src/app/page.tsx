@@ -41,6 +41,7 @@ export default function Home() {
         <Login/>
       </div>
       <div className={styles.description}>
+        <button onClick={cargarPeliculas}>cargar</button>
         <CardPeliculas modificarPeli= {(pelicula:Pelicula) => modificarPeli(pelicula)} eliminarPelicula ={(id:number) => eliminarPelicula(id)} peliculas = {peliculas} ></CardPeliculas>
       </div>
     </main>

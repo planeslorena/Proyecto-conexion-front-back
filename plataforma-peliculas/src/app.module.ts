@@ -6,6 +6,7 @@ import { PeliculasService } from './services/peliculas.service';
 import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtMiddlewareGuard } from './services/Jwtguard.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [AppController, PeliculasController, LoginController],
-  providers: [AppService, PeliculasService, LoginService],
+  providers: [AppService, PeliculasService, LoginService, JwtMiddlewareGuard],
 })
 export class AppModule {}

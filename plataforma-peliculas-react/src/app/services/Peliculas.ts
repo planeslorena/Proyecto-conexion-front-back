@@ -5,7 +5,7 @@ import Pelicula from '../model/pelicula.model';
 
 export const getAllPeliculas = async () => {
   try {
-    const respuesta: AxiosResponse<any, any> = await clienteAxios.get('/api/peliculas');
+    const respuesta: AxiosResponse<any, any> = await clienteAxios.get('/api/peliculas',{headers: {Authorization:`Bearer ${sessionStorage.getItem('token')}`}})
     return respuesta.data;
   } catch (err) {
     throw new Error('Error consultando peliculas');

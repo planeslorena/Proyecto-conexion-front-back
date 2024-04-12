@@ -11,11 +11,14 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import Pelicula from 'src/models/pelicula.dto';
+import { JwtMiddlewareGuard } from 'src/services/Jwtguard.service';
 import { PeliculasService } from 'src/services/peliculas.service';
 
 @Controller('/api/peliculas')
+@UseGuards(JwtMiddlewareGuard)
 export class PeliculasController {
   constructor(private readonly peliculasService: PeliculasService) { }
 
