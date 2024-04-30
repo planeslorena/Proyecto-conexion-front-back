@@ -31,7 +31,6 @@ import { JwtMiddlewareGuard } from './services/Jwtguard.service';
     LoginService,
     GenerosService,
     DatabaseService,
-    ,
     JwtMiddlewareGuard,
   ],
 })
