@@ -6,6 +6,9 @@ import { PeliculasService } from './services/peliculas.service';
 import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
 import { JwtModule } from '@nestjs/jwt';
+import { GenerosController } from './controllers/generos.controller';
+import { GenerosService } from './services/generos.service';
+import { DatabaseService } from './services/db.service';
 
 @Module({
   imports: [
@@ -15,7 +18,18 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AppController, PeliculasController, LoginController],
-  providers: [AppService, PeliculasService, LoginService],
+  controllers: [
+    AppController,
+    PeliculasController,
+    LoginController,
+    GenerosController,
+  ],
+  providers: [
+    AppService,
+    PeliculasService,
+    LoginService,
+    GenerosService,
+    DatabaseService,
+  ],
 })
 export class AppModule {}
