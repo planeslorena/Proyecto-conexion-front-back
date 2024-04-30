@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { GenerosController } from './controllers/generos.controller';
 import { GenerosService } from './services/generos.service';
 import { DatabaseService } from './services/db.service';
+import { JwtMiddlewareGuard } from './services/Jwtguard.service';
 
 @Module({
   imports: [
@@ -30,6 +31,8 @@ import { DatabaseService } from './services/db.service';
     LoginService,
     GenerosService,
     DatabaseService,
+    ,
+    JwtMiddlewareGuard,
   ],
 })
 export class AppModule {}
