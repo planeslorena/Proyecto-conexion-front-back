@@ -1,29 +1,33 @@
-import { IsArray, IsInt, IsNumber, IsString  } from "class-validator"
+import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
 
 class Pelicula {
-    @IsInt()
-    id: number;
+  @IsInt()
+  @IsOptional()
+  peliculaId: number;
 
-    @IsString()
-    titulo: string;
+  @IsString()
+  titulo?: string;
 
-    @IsArray()
-    actoresPrincipales: string[];
+  @IsArray()
+  @IsOptional()
+  actoresPrincipales: string[];
 
-    @IsArray()
-    listaGeneros: string[];
+  @IsArray()
+  @IsOptional()
+  listaGeneros: string[];
 
-    @IsString()
-    sinopsis: string;
+  @IsString()
+  sinopsis: string;
 
-    @IsString()
-    imagen: string;
+  @IsString()
+  @IsOptional()
+  imagen: string;
 
-    @IsInt()
-    duracion: number;
+  @IsInt()
+  duracion: number;
 
-    @IsString()
-    fechaLanzamiento: string;
+  @IsString()
+  fechaLanzamiento: string;
 }
 
-export default Pelicula
+export default Pelicula;

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 
 import {
   Body,
@@ -7,52 +8,44 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Put,
-  Res,
-  UseGuards,
 } from '@nestjs/common';
 import Pelicula from 'src/models/pelicula.dto';
-import { JwtMiddlewareGuard } from 'src/services/Jwtguard.service';
 import { PeliculasService } from 'src/services/peliculas.service';
 
 @Controller('/api/peliculas')
-@UseGuards(JwtMiddlewareGuard)
 export class PeliculasController {
   constructor(private readonly peliculasService: PeliculasService) { }
 
   @Get()
-  getPeliculas(): Pelicula[] {
+  async getPeliculas(): Promise<Pelicula[]> {
     return this.peliculasService.getPeliculas();
   }
 
-  @Get('/:id')
-  getPeliculaByID(
-    @Param(
-      'id',
-      new ParseIntPipe({
-        errorHttpStatusCode: HttpStatus.BAD_REQUEST,
-      }),
-    )
-    id: number,
-  ): Pelicula {
-    return this.peliculasService.getPeliculaByID(id);
-  }
+  // @Get('/:peliculaId')
+  // async getPeliculaByID(@Param('peliculaId',new ParseIntPipe({ errorHttpStatusCode: HttpStatus.BAD_REQUEST }))
+  //   id: number,
+  // ): Promise<Pelicula> {
+  //   return this.peliculasService.getPeliculaByID(id);
+  // }
 
-  @Patch('/:id')
-  updatePelicula(
-    @Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.BAD_REQUEST,}),) id: number,
-    @Body() body: Pelicula): Pelicula {
-
+  @Post()
+  async createPelicula(@Body() body: Pelicula): Promise<Pelicula> {
     const newPelicula = body;
-    return this.peliculasService.updatePelicula(id, newPelicula);
+    return await this.peliculasService.createPelicula(newPelicula);
   }
 
-  @Delete('/:id')
-  deletePelicula(
-    @Param('id', new ParseIntPipe({
- errorHttpStatusCode: HttpStatus.BAD_REQUEST, }),) id: number): void {
-    this.peliculasService.deletePelicula(id);
+  @Put('/:peliculaId')
+  async updatePelicula(
+    @Param('peliculaId', new ParseIntPipe({errorHttpStatusCode: HttpStatus.BAD_REQUEST,}),) id: number,@Body() body: Pelicula): Promise<Pelicula> {
+    const newPelicula = body;
+    return await this.peliculasService.updatePelicula(id, newPelicula);
+  }
+
+  @Delete('/:peliculaId')
+  async deletePelicula(
+    @Param('peliculaId', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.BAD_REQUEST, }),) peliculaId: number): Promise<void> {
+    this.peliculasService.deletePelicula(peliculaId);
   }
 }

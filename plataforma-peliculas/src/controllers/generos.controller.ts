@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import Genero from 'src/models/genero.dto';
 import { GenerosService } from 'src/services/generos.service';
 
@@ -14,5 +22,18 @@ export class GenerosController {
   @Post()
   async crearGenero(@Body() body: Genero): Promise<Genero> {
     return await this.generosService.crearGenero(body);
+  }
+
+  @Put('/:generoId')
+  async actualizarGenero(
+    @Param('generoId') generoId: number,
+    @Body() body: Genero,
+  ): Promise<Genero> {
+    return await this.generosService.actualizarGenero(generoId, body);
+  }
+
+  @Delete('/:generoId')
+  async eliminarGenero(@Param('generoId') generoId: number): Promise<void> {
+    return await this.generosService.eliminarGenero(generoId);
   }
 }
