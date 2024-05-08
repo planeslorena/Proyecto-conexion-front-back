@@ -1,6 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import Pelicula from 'src/models/pelicula.dto';
+import { DatabaseService } from './db.service';
+import { ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import peliculasQueries from './queries/peliculas.queries';
 
+/* Primer backend sin base de datos
 let peliculas: Pelicula[] = [
   {
     id: 1,
@@ -40,10 +44,55 @@ let peliculas: Pelicula[] = [
     duracion: 129,
     fechaLanzamiento: '19 de julio, 2001',
   },
-];
+];*/
 
 @Injectable()
 export class PeliculasService {
+
+  constructor(private dbService: DatabaseService) {}
+
+  async getPeliculas(): Promise<Pelicula[]> {
+    const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(
+      peliculasQueries.selectAll,
+      [],
+    );
+    const resultPeliculas = resultQuery.map((rs: RowDataPacket) => {
+      return {
+        peliculaId: rs['peliculaId'],
+        titulo: rs['titulo'],
+        sinopsis: rs['sinopsis'],
+        imagenUrl: rs['imagenUrl'],
+        duracion: rs['duracion'],
+        fechaLanzamiento: rs['fechaLanzamiento']
+      };
+    });
+    return resultPeliculas;
+  }
+
+  async crearPelicula(pelicula: Pelicula): Promise<Pelicula> {
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(
+      peliculasQueries.insert,
+      [pelicula.titulo, pelicula.sinopsis, pelicula.imagenUrl, pelicula.duracion, pelicula.fechaLanzamiento],
+    );
+    return {
+      peliculaId: resultQuery.insertId,
+      titulo:pelicula.titulo, 
+      sinopsis:pelicula.sinopsis, 
+      imagenUrl: pelicula.imagenUrl, 
+      duracion: pelicula.duracion, 
+      fechaLanzamiento: pelicula.fechaLanzamiento
+    };
+  }
+
+  async updatePelicula(id: number, pelicula: Pelicula): Promise<Pelicula>  {
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(
+      peliculasQueries.update,
+      [pelicula.titulo, pelicula.sinopsis, pelicula.imagenUrl, pelicula.duracion, pelicula.fechaLanzamiento, id],
+    );
+    
+    return pelicula;
+  }
+  /*Metodos usando array, sin base de datos
   getPeliculas(): Pelicula[] {
     return peliculas;
   }
@@ -83,5 +132,5 @@ export class PeliculasService {
       );
     }
     peliculas = peliculas.filter((pl) => pl.id != id);
-  }
+  }*/
 }

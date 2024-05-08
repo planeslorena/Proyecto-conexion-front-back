@@ -23,11 +23,25 @@ export class PeliculasController {
   constructor(private readonly peliculasService: PeliculasService) { }
 
   @Get()
-  getPeliculas(): Pelicula[] {
-    return this.peliculasService.getPeliculas();
+  async getPeliculas(): Promise<Pelicula[]> {
+    return await this.peliculasService.getPeliculas();
   }
 
-  @Get('/:id')
+  @Post()
+  async crearPelicula(@Body() body: Pelicula):Promise<Pelicula>  {
+    return await this.peliculasService.crearPelicula(body);
+  }
+
+  @Put('/:id')
+  async updatePelicula(
+    @Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.BAD_REQUEST,}),) id: number,
+    @Body() body: Pelicula): Promise<Pelicula> {
+
+    const newPelicula = body;
+    return this.peliculasService.updatePelicula(id, newPelicula);
+  }
+
+  /*@Get('/:id')
   getPeliculaByID(
     @Param(
       'id',
@@ -54,5 +68,5 @@ export class PeliculasController {
     @Param('id', new ParseIntPipe({
  errorHttpStatusCode: HttpStatus.BAD_REQUEST, }),) id: number): void {
     this.peliculasService.deletePelicula(id);
-  }
+  }*/
 }
