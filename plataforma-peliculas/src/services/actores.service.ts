@@ -46,13 +46,20 @@ export class ActoresService {
   }
 
   async deleteActor (id:number) {
+    try{
     const resultQuery: ResultSetHeader = await this.dbService.executeQuery(
         actoresQueries.delete,
         [ id],
       );
       if (resultQuery.affectedRows != 1) {
-        throw new HttpException('No pudo borrarse el actor', HttpStatus.NOT_FOUND)
+        throw new HttpException('No pudo eliminarse el actor', HttpStatus.NOT_FOUND)
     }
-  
+    } catch (error) {
+        throw new HttpException(
+          `Error eliminando actor: ${error.sqlMessage}`,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }  
   }
-}
+
