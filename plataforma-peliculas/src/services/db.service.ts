@@ -15,7 +15,7 @@ export class DatabaseService {
     this.pool = createPool({
       port: 3306,
       database: 'plataformapeliculas',
-      password: 'Loli1410',
+      password: 'root2024',
       host: 'localhost',
       user: 'root',
       // cantidad maxima de conexiones en el pool

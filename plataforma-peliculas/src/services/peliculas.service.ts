@@ -89,8 +89,11 @@ export class PeliculasService {
       peliculasQueries.update,
       [pelicula.titulo, pelicula.sinopsis, pelicula.imagenUrl, pelicula.duracion, pelicula.fechaLanzamiento, id],
     );
-    
-    return pelicula;
+    if (resultQuery.affectedRows == 1) {
+      return pelicula;
+    }
+
+    throw new HttpException('No pudo actualizarse la pelicula', HttpStatus.NOT_FOUND)
   }
   /*Metodos usando array, sin base de datos
   getPeliculas(): Pelicula[] {
