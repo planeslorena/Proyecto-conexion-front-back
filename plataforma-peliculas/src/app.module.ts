@@ -10,6 +10,8 @@ import { GenerosController } from './controllers/generos.controller';
 import { GenerosService } from './services/generos.service';
 import { DatabaseService } from './services/db.service';
 import { JwtMiddlewareGuard } from './services/Jwtguard.service';
+import { ActoresController } from './controllers/actores.controller';
+import { ActoresService } from './services/actores.service';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { JwtMiddlewareGuard } from './services/Jwtguard.service';
     PeliculasController,
     LoginController,
     GenerosController,
+    ActoresController
   ],
   providers: [
     AppService,
@@ -32,6 +35,7 @@ import { JwtMiddlewareGuard } from './services/Jwtguard.service';
     GenerosService,
     DatabaseService,
     JwtMiddlewareGuard,
+    ActoresService
   ],
 })
 export class AppModule {}
